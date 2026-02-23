@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
 
             // Uniquement pour le canal WhatsApp
             // Le canal email utilise password_reset_tokens (natif Laravel)

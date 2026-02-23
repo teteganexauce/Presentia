@@ -15,9 +15,9 @@ return new class extends Migration
             $table->string('category')->nullable();
 
             $table->foreignId('leader_id')
-                  ->nullable()
-                  ->constrained('users')
-                  ->nullOnDelete();
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
 
             $table->timestamps();
             $table->softDeletes();

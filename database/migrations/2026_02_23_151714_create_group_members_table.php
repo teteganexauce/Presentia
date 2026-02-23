@@ -12,12 +12,12 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('user_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
 
             $table->foreignId('group_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
+                ->constrained()
+                ->cascadeOnDelete();
 
             $table->timestamp('joined_at')->useCurrent();
             $table->timestamp('left_at')->nullable();

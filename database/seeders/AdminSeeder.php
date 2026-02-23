@@ -14,11 +14,11 @@ class AdminSeeder extends Seeder
             ['email' => 'admin@eber.org'],
             [
                 'first_name' => 'Super',
-                'last_name'  => 'Admin',
-                'phone'      => '+22900000000',
-                'email'      => 'admin@eber.org',
-                'password'   => Hash::make('Admin@2026!'),
-                'status'     => 'ACTIVE',
+                'last_name' => 'Admin',
+                'phone' => '+22900000000',
+                'email' => 'admin@eber.org',
+                'password' => Hash::make('Admin@2026!'),
+                'status' => 'ACTIVE',
             ]
         );
     }

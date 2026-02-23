@@ -34,8 +34,8 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'birth_date'        => 'date',
-            'password'          => 'hashed',
+            'birth_date' => 'date',
+            'password' => 'hashed',
         ];
     }
 
@@ -82,8 +82,8 @@ class User extends Authenticatable
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class, 'group_members')
-                    ->withPivot('joined_at', 'left_at')
-                    ->withTimestamps();
+            ->withPivot('joined_at', 'left_at')
+            ->withTimestamps();
     }
 
     public function auditLogs(): HasMany
