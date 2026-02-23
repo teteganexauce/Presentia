@@ -6,21 +6,46 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+
+            // Identité
+            $table->string('first_name');
+            $table->string('last_name');
+
+            // Identifiants de connexion
+            // Les deux sont nullable en DB — la contrainte "au moins un"
+            // est gérée dans la Form Request via required_without
+            $table->string('phone')->nullable()->unique();
+            $table->string('email')->nullable()->unique();
+
+            $table->date('birth_date')->nullable();
+            $table->string('address')->nullable();
+            $table->string('photo')->nullable();
+
+            // Auth
             $table->string('password');
             $table->rememberToken();
+
+            // Statut du compte
+            $table->enum('status', [
+                'PENDING',    // première connexion pas encore faite
+                'ACTIVE',     // compte actif
+                'INACTIVE',   // désactivé temporairement
+                'SUSPENDED',  // suspendu par l'admin
+            ])->default('PENDING');
+
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
+            // Index pour les recherches fréquentes
+            $table->index(['status', 'created_at']);
         });
 
+        // ⚠️ On garde ces deux tables telles quelles — gérées par Laravel
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
@@ -37,9 +62,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');
