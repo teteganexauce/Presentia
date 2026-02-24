@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Traits\Auditable;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Models\Contracts\HasName;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser, HasName
 {
     use Auditable, HasFactory, Notifiable, SoftDeletes;
 
@@ -95,5 +98,20 @@ class User extends Authenticatable
     public function passwordResetRequests(): HasMany
     {
         return $this->hasMany(PasswordResetRequest::class);
+    }
+
+    // ─── Filament ────────────────────────────────────────────────────────────
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->status === 'ACTIVE';
+    }
+
+    /**
+     * Filament v4 utilise cette méthode pour afficher le nom de l'utilisateur.
+     */
+    public function getFilamentName(): string
+    {
+        return $this->full_name;
     }
 }
