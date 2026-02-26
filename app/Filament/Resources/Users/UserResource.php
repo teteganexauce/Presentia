@@ -112,7 +112,7 @@ class UserResource extends Resource
                 TextColumn::make('status')
                     ->label('Statut')
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
+                    ->color(fn (string $state): string => match ($state) {
                         'ACTIVE' => 'success',
                         'PENDING' => 'warning',
                         'INACTIVE' => 'gray',
