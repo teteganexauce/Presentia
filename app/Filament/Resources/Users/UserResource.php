@@ -59,10 +59,12 @@ class UserResource extends Resource
                 ->schema([
                     TextInput::make('phone')
                         ->label('Numéro de téléphone')
-                        ->tel()
+                        ->prefix('+229')
+                        ->placeholder('01XXXXXXXX')
                         ->unique(ignoreRecord: true)
                         ->nullable()
-                        ->maxLength(20),
+                        ->maxLength(20)
+                        ->helperText('Format attendu : 01XXXXXXXX'),
 
                     TextInput::make('email')
                         ->label('Email')
@@ -110,7 +112,7 @@ class UserResource extends Resource
                 TextColumn::make('status')
                     ->label('Statut')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'ACTIVE' => 'success',
                         'PENDING' => 'warning',
                         'INACTIVE' => 'gray',

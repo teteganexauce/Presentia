@@ -14,6 +14,15 @@ class CreateUser extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+        // Normaliser le numéro de téléphone
+        if (!empty($data['phone'])) {
+            $phone = preg_replace('/\s+/', '', $data['phone']);
+            if (!str_starts_with($phone, '+229')) {
+                $data['phone'] = '+229' . $phone;
+            } else {
+                $data['phone'] = $phone;
+            }
+        }
         // Validation : au moins un des deux obligatoire
         if (empty($data['phone']) && empty($data['email'])) {
             Notification::make()
@@ -42,7 +51,7 @@ class CreateUser extends CreateRecord
         $record = $this->record;
 
         // Vérifier que le record est bien un User
-        if (! $record instanceof \App\Models\User) {
+        if (!$record instanceof \App\Models\User) {
             return;
         }
 
