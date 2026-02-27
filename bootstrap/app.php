@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\AuditRequestMiddleware;
+use App\Http\Middleware\ForcePasswordChange;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -12,8 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Appliquer l'audit sur toutes les routes web authentifiées
+        // Audit sur toutes les routes web
         $middleware->appendToGroup('web', AuditRequestMiddleware::class);
+
+        // Forcer le changement de mot de passe si statut PENDING
+        $middleware->appendToGroup('web', ForcePasswordChange::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
