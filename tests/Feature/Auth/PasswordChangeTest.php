@@ -25,6 +25,7 @@ class PasswordChangeTest extends TestCase
     {
         $user = User::factory()->withEmailOnly()->create([
             'status' => 'ACTIVE',
+            'email_verified_at' => now(),
         ]);
 
         $this->actingAs($user)
@@ -36,6 +37,7 @@ class PasswordChangeTest extends TestCase
     {
         $user = User::factory()->withEmailOnly()->create([
             'status' => 'PENDING',
+            'email_verified_at' => now(),
         ]);
 
         $this->actingAs($user)
