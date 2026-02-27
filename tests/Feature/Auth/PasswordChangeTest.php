@@ -51,7 +51,7 @@ class PasswordChangeTest extends TestCase
 
         $this->actingAs($user)
             ->put(route('password.change.update'), [
-                'password'              => 'NouveauMdp@2026',
+                'password' => 'NouveauMdp@2026',
                 'password_confirmation' => 'NouveauMdp@2026',
             ])
             ->assertRedirect(route('login'));
@@ -67,7 +67,7 @@ class PasswordChangeTest extends TestCase
 
         $this->actingAs($user)
             ->put(route('password.change.update'), [
-                'password'              => 'faible',
+                'password' => 'faible',
                 'password_confirmation' => 'faible',
             ])
             ->assertSessionHasErrors('password');
@@ -83,7 +83,7 @@ class PasswordChangeTest extends TestCase
 
         $this->actingAs($user)
             ->put(route('password.change.update'), [
-                'password'              => 'motdepasse@2026',
+                'password' => 'motdepasse@2026',
                 'password_confirmation' => 'motdepasse@2026',
             ])
             ->assertSessionHasErrors('password');
@@ -97,7 +97,7 @@ class PasswordChangeTest extends TestCase
 
         $this->actingAs($user)
             ->put(route('password.change.update'), [
-                'password'              => 'NouveauMdp@2026',
+                'password' => 'NouveauMdp@2026',
                 'password_confirmation' => 'AutreMdp@2026',
             ])
             ->assertSessionHasErrors('password');
@@ -111,7 +111,7 @@ class PasswordChangeTest extends TestCase
 
         $this->actingAs($user)
             ->put(route('password.change.update'), [
-                'password'              => 'NouveauMdp@2026',
+                'password' => 'NouveauMdp@2026',
                 'password_confirmation' => 'NouveauMdp@2026',
             ]);
 

@@ -29,7 +29,7 @@ class ChangePasswordRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'password.required'  => 'Le mot de passe est obligatoire.',
+            'password.required' => 'Le mot de passe est obligatoire.',
             'password.confirmed' => 'Les mots de passe ne correspondent pas.',
         ];
     }

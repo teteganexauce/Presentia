@@ -23,7 +23,7 @@ class PasswordChangeController extends Controller
         // Mettre à jour le mot de passe et activer le compte
         $user->update([
             'password' => Hash::make($request->validated('password')),
-            'status'   => 'ACTIVE',
+            'status' => 'ACTIVE',
         ]);
 
         // Log d'audit
